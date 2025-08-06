@@ -1,24 +1,17 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include <cstdint>
-
-
-enum SENSOR_TYPE {
-    LIGHT,
-    MOISTURE
-};
-
-// need to know if it's input or output + GPIO
+#include <stdbool.h>
+#include <stdint.h>
 
 typedef struct {
-    enum SENSOR_TYPE type;
-    int gpio_num;
+    int adc_channel;
+    int adc_width;
+    int adc_attenuation;
 } sensor_t;
 
-void sensor_init(sensor_t *sensor, enum SENSOR_TYPE type, int gpio_num);
+bool sensor_create(sensor_t* sensor, int adc_channel, int adc_width, int adc_attenuation);
 
-uint16_t sensor_read_moisture(void);
-uint16_t sensor_read_light(void);
+int sensor_read(sensor_t* sensor);
 
-#endif /* SENSOR_H */
+#endif // SENSOR_H
